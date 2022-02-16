@@ -88,12 +88,22 @@ const sumUp = (resulHandler, ...numbers) => {
     resulHandler(sum);
 };
 
+const subtractUp = function(resulHandler) {
+    let sum = 0;
+    for (const num of arguments) { // old "rest parameters" before ECMAScript 2015 (arguments)
+        sum -= num;
+    }
+    resulHandler(sum);
+};
+
+// this an example of manually building callback functions
 const showResult = (result) => {
     alert('The result after adding all the numbers is: ' + result);
 };
 
 sumUp(showResult, 1, 5, 7, 34, -78, 67);
 console.log(sumUp(12, 34, 5, 6, 7, 8, 9, 7, -76));
+subtractUp(showResult, 1, 34, 6, 4, 7);
 
 
 
