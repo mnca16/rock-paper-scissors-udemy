@@ -76,34 +76,57 @@ startGameBtn.addEventListener('click', () => {
 
 // not related to the game
 
-const sumUp = (resulHandler, ...numbers) => {
+const combine = (resultHandler, operation, ...numbers) => { //rest parameter (...)
     const validateNumber = (number) => {    //functions inside functions
         return isNaN(number) ? 0 : number;
     };
 
     let sum = 0;
-    for (const num of numbers) {
-        sum += validateNumber(num);
+    for (const num of numbers) { 
+        if(operation === 'ADD'){
+          sum += validateNumber(num);
+        } else {
+          sum -= validateNumber(num);
+        }
     }
-    resulHandler(sum);
+    resultHandler(sum);
 };
 
-const subtractUp = function(resulHandler) {
-    let sum = 0;
-    for (const num of arguments) { // old "rest parameters" before ECMAScript 2015 (arguments)
-        sum -= num;
-    }
-    resulHandler(sum);
-};
 
 // this an example of manually building callback functions
-const showResult = (result) => {
-    alert('The result after adding all the numbers is: ' + result);
+const showResult = (messageText, result) => {
+    alert(messageText + '' + result);
 };
 
-sumUp(showResult, 1, 5, 7, 34, -78, 67);
-console.log(sumUp(12, 34, 5, 6, 7, 8, 9, 7, -76));
-subtractUp(showResult, 1, 34, 6, 4, 7);
+combine(
+    showResult.bind(this, 'The result after adding all numbers is:'), 
+    'ADD', 
+    1, 
+    5, 
+    7, 
+    34, 
+    -78, 
+    67);
+combine(
+    showResult.bind(this, 'The result after adding all numbers is:'),
+    'ADD',
+    12,
+    34,
+    5,
+    6,
+    7,
+    8,
+    9,
+    7,
+    -76);
+combine(
+    showResult.bind(this, 'The result after subtracting all numbers is:'), 
+    'SUBTRACT',
+    1,
+    34,
+    6,
+    4,
+    7);
 
 
 
